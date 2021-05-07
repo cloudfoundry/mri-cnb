@@ -9,6 +9,7 @@ on:
 jobs:
   download:
     name: Download PR Artifact
+    runs-on: ubuntu-latest
     if: >
       ${{ github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success' }}
@@ -29,10 +30,10 @@ jobs:
   approve:
     name: Approve Bot PRs
     needs: download
+    runs-on: ubuntu-latest
     if: >
       ${{ needs.download.outputs.pr-author == 'paketo-bot' ||
       needs.download.outputs.pr-author == 'dependabot[bot]' }}
-    runs-on: ubuntu-latest
     steps:
     - name: Retrieve pull request number
       run: |
